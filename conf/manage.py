@@ -5,7 +5,7 @@ from os.path import join, dirname, abspath, normpath
 
 path = normpath(join(abspath(dirname(__file__)), '..', '..'))
 sys.path.append(join(path, 'lib', 'python2.7', 'site-packages'))
-sys.path.append(join(path, 'boardie'))
+sys.path.append(join(path, 'billometer'))
 
 from django.core.management import execute_manager
 
