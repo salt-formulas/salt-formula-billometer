@@ -1,0 +1,8 @@
+Django==1.5.5
+South==0.8.1
+django-mptt==0.5.5
+django-flashpolicies>=1.4.1
+django-suit==0.2.5
+django-extensions==1.2.5
+django-markupfield>=1.0.2
+requests==2.0.0
