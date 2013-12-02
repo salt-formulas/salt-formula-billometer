@@ -17,9 +17,9 @@
         database:
           engine: 'postgresql'
           host: '127.0.0.1'
-          name: 'django_enc'
+          name: 'django_billometer'
           password: 'db-pwd'
-          user: 'django_enc'
+          user: 'django_billometer'
         mail:
           host: 'mail.domain.com'
           password: 'mail-pwd'

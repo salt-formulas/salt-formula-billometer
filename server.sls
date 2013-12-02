@@ -25,32 +25,26 @@ billometer_packages:
 
 {{ pillar.billometer.server.source.address }}:
   git.latest:
-  - target: /srv/billometer
+  - target: /srv/billometer/billometer
   - rev: {{ pillar.billometer.server.source.rev }}
   - require:
     - virtualenv: /srv/billometer
 
-/srv/billometer/site:
+/srv/billometer/billometer:
   file:
   - directory
   - require:
     - virtualenv: /srv/billometer
 
-/srv/billometer/site/core:
-  file:
-  - directory
-  require:
-  - file: /srv/billometer/site
-
-/srv/billometer/site/enc:
+/srv/billometer/billometer/billometer:
   file:
   - directory
   - user: www-data
   - group: www-data
   require:
-  - file: /srv/billometer/site
+  - file: /srv/billometer/billometer
 
-/srv/billometer/site/server.wsgi:
+/srv/billometer/billometer/server.wsgi:
   file:
   - managed
   {%- if pillar.system.environment == 'prod' %}
@@ -61,7 +55,7 @@ billometer_packages:
   - mode: 755
   - template: jinja
   - require:
-    - file: /srv/billometer/site
+    - file: /srv/billometer/billometer
 
 /srv/billometer/media:
   file:
@@ -73,7 +67,7 @@ billometer_packages:
   - mode: 755
   - makedirs: true
   - require:
-    - file: /srv/billometer/site
+    - file: /srv/billometer/billometer
 
 /srv/billometer/static:
   file:
@@ -85,7 +79,7 @@ billometer_packages:
   - mode: 755
   - makedirs: true
   - require:
-    - file: /srv/billometer/site
+    - file: /srv/billometer/billometer
 
 /srv/billometer/logs:
   file:
@@ -95,9 +89,9 @@ billometer_packages:
   - mode: 755
   - makedirs: true
   - require:
-    - file: /srv/billometer/site
+    - file: /srv/billometer/billometer
 
-/srv/billometer/site/core/settings.py:
+/srv/billometer/billometer/settings.py:
   file:
   - managed
   {%- if pillar.system.environment == 'prod' %}
@@ -108,33 +102,9 @@ billometer_packages:
   - template: jinja
   - mode: 644
   - require:
-    - file: /srv/billometer/site/core
+    - file: /srv/billometer/billometer
 
-/srv/billometer/site/core/urls.py:
-  file:
-  - managed
-  {%- if pillar.system.environment == 'prod' %}
-  - user: root
-  - group: root
-  {% endif %}
-  - source: salt://billometer/conf/urls.py
-  - template: jinja
-  - mode: 644
-  - require:
-    - file: /srv/billometer/site/core
-
-/srv/billometer/site/core/__init__.py:
-  file:
-  - managed
-  {%- if pillar.system.environment == 'prod' %}
-  - user: root
-  - group: root
-  {% endif %}
-  - mode: 644
-  - require:
-    - file: /srv/billometer/site/core
-
-/srv/billometer/site/manage.py:
+/srv/billometer/billometer/manage.py:
   file:
   - managed
   {%- if pillar.system.environment == 'prod' %}
@@ -145,26 +115,26 @@ billometer_packages:
   - template: jinja
   - mode: 755
   - require:
-    - file: /srv/billometer/site/core/settings.py
+    - file: /srv/billometer/billometer/settings.py
 
 sync_database_billometer:
   cmd.run:
   - name: python manage.py syncdb --noinput
-  - cwd: /srv/billometer/site
+  - cwd: /srv/billometer/billometer
   - require:
-    - file: /srv/billometer/site/manage.py
+    - file: /srv/billometer/billometer/manage.py
 
 migrate_database_billometer:
   cmd.run:
   - name: python manage.py migrate --noinput
-  - cwd: /srv/billometer/site
+  - cwd: /srv/billometer/billometer
   - require:
     - cmd: sync_database_billometer
 
 collect_static_billometer:
   cmd.run:
   - name: python manage.py collectstatic --noinput
-  - cwd: /srv/billometer/site
+  - cwd: /srv/billometer/billometer
   - require:
     - cmd: sync_database_billometer
 
