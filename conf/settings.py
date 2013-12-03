@@ -122,7 +122,7 @@ LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'keystone_auth.backend.KeystoneBackend',
+    'openstack_auth.backend.KeystoneBackend',
 )
 
 REST_FRAMEWORK = {
