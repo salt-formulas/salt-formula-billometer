@@ -102,6 +102,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.staticfiles',
     'south',
+    'rest_framework',
 )
 
 STATICFILES_FINDERS =(
