@@ -21,6 +21,13 @@
           name: 'django_billometer'
           password: 'db-pwd'
           user: 'django_billometer'
+        identity:
+          engine: 'keystone'
+          region: 'regionOne'
+          token: 'token'
+          host: '127.0.0.1'
+          port: 5000
+          api_version: 2
         mail:
           host: 'mail.domain.com'
           password: 'mail-pwd'

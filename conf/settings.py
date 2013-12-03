@@ -29,6 +29,10 @@ CACHES = {
     }
 }
 
+KEYSTONE_REGION = "{{ app.identity.region }}"
+KEYSTONE_SERVICE_TOKEN = "{{ app.identity.token }}"
+KEYSTONE_SERVICE_ENDPOINT="http://{{ app.identity.host }}:{{ app.identity.port }}/v{{ app.identity.api_version }}.0"
+
 EMAIL_HOST = '{{ app.mail.host }}',
 EMAIL_HOST_USER = '{{ app.mail.user }}',
 EMAIL_HOST_PASSWORD = '{{ app.mail.password }}'
