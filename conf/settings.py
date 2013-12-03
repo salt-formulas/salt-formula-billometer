@@ -85,12 +85,13 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'core.urls'
+ROOT_URLCONF = 'billometer.urls'
 
 TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'billometer',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -98,7 +99,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.staticfiles',
-    'enc',
     'south',
 )
 

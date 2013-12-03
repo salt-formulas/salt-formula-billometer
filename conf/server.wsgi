@@ -15,8 +15,8 @@ site.addsitedir('/srv/billometer/lib/python2.7/site-packages')
 import os
 #os.environ['PYTHON_EGG_CACHE'] = '/www/lostquery.com/mod_wsgi/egg-cache'
 
-sys.path.append('/srv/billometer/billometer')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'project.settings'
+sys.path.append('/srv/billometer')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'site.settings'
 
 import django.core.handlers.wsgi
 
