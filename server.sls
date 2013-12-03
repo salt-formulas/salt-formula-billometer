@@ -1,5 +1,9 @@
 {%- if pillar.billometer.server.enabled %}
- 
+
+include:
+- git
+- python
+
 billometer_packages:
   pkg.installed:
   - names:
@@ -15,6 +19,8 @@ billometer_packages:
     - python-dev
     - gettext
     - libpq-dev
+  - require:
+    - pkg: python_packages
 
 /srv/billometer:
   virtualenv.manage:
@@ -29,6 +35,7 @@ billometer_packages:
   - rev: {{ pillar.billometer.server.source.rev }}
   - require:
     - virtualenv: /srv/billometer
+    - pkg: git_packages
 
 /srv/billometer/billometer:
   file:
