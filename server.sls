@@ -46,7 +46,7 @@ billometer_packages:
   - require:
     - virtualenv: /srv/billometer
 
-/srv/billometer/site:
+/srv/billometer/site/core:
   file:
   - directory
   - user: root
@@ -86,7 +86,7 @@ billometer_packages:
   - require:
     - virtualenv: /srv/billometer
 
-/srv/billometer/site/settings.py:
+/srv/billometer/site/core/settings.py:
   file:
   - managed
   - user: root
@@ -95,9 +95,9 @@ billometer_packages:
   - template: jinja
   - mode: 644
   - require:
-    - file: /srv/billometer/site
+    - file: /srv/billometer/site/core
 
-/srv/billometer/site/__init__.py:
+/srv/billometer/site/core/__init__.py:
   file:
   - managed
   - user: root
@@ -105,9 +105,9 @@ billometer_packages:
   - template: jinja
   - mode: 644
   - require:
-    - file: /srv/billometer/site
+    - file: /srv/billometer/site/core
 
-/srv/billometer/manage.py:
+/srv/billometer/site/manage.py:
   file:
   - managed
   - user: root
@@ -116,14 +116,14 @@ billometer_packages:
   - template: jinja
   - mode: 755
   - require:
-    - virtualenv: /srv/billometer
+    - file: /srv/billometer/site/core
 
 sync_database_billometer:
   cmd.run:
   - name: python manage.py syncdb --noinput
   - cwd: /srv/billometer
   - require:
-    - file: /srv/billometer/manage.py
+    - file: /srv/billometer/site/manage.py
 
 migrate_database_billometer:
   cmd.run:
