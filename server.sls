@@ -121,21 +121,21 @@ billometer_packages:
 sync_database_billometer:
   cmd.run:
   - name: python manage.py syncdb --noinput
-  - cwd: /srv/billometer
+  - cwd: /srv/billometer/site
   - require:
     - file: /srv/billometer/site/manage.py
 
 migrate_database_billometer:
   cmd.run:
   - name: python manage.py migrate --noinput
-  - cwd: /srv/billometer
+  - cwd: /srv/billometer/site
   - require:
     - cmd: sync_database_billometer
 
 collect_static_billometer:
   cmd.run:
   - name: python manage.py collectstatic --noinput
-  - cwd: /srv/billometer
+  - cwd: /srv/billometer/site
   - require:
     - cmd: sync_database_billometer
 

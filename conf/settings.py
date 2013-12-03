@@ -61,6 +61,8 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = '/srv/billometer/static/'
 STATIC_URL = '/static/'
 
+SECRET_KEY = '{{ app.secret_key }}'
+
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
