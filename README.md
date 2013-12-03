@@ -6,6 +6,7 @@
     billometer:
       server:
         enabled: true
+        secret_key: secret_token
         source:
           type: 'git'
           address: 'git@repo1.robotice.cz:django/django-billometer.git'
