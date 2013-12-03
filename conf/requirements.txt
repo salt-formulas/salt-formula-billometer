@@ -5,6 +5,7 @@ django-extensions==1.2.5
 djangorestframework==2.3.9
 django-assets==0.8
 django-yamlfield==0.4
+django_openstack_auth>=1.1.1
 requests==2.0.0
 python-cinderclient>=1.0.5
 python-glanceclient>=0.9.0
@@ -14,3 +15,5 @@ python-novaclient>=2.15.0
 python-neutronclient>=2.3.0,<3
 python-swiftclient>=1.5
 python-ceilometerclient>=1.0.5
+lesscpy>=0.9j
+lockfile>=0.8

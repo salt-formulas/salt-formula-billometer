@@ -33,6 +33,8 @@ KEYSTONE_REGION = "{{ app.identity.region }}"
 KEYSTONE_SERVICE_TOKEN = "{{ app.identity.token }}"
 KEYSTONE_SERVICE_ENDPOINT="http://{{ app.identity.host }}:{{ app.identity.port }}/v{{ app.identity.api_version }}.0"
 
+OPENSTACK_KEYSTONE_URL = KEYSTONE_SERVICE_ENDPOINT
+
 EMAIL_HOST = '{{ app.mail.host }}',
 EMAIL_HOST_USER = '{{ app.mail.user }}',
 EMAIL_HOST_PASSWORD = '{{ app.mail.password }}'
@@ -107,6 +109,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'rest_framework',
+    'openstack_auth',
 )
 
 STATICFILES_FINDERS =(
@@ -116,3 +119,7 @@ STATICFILES_FINDERS =(
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
+
+AUTHENTICATION_BACKENDS = (
+    'keystone_auth.backend.KeystoneBackend',
+)
