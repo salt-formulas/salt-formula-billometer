@@ -14,7 +14,7 @@
           protocol: tcp
         source:
           type: 'git'
-          address: 'git@repo1.robotice.cz:django/django-billometer.git'
+          address: 'git@repo1.robotice.cz:django/billometer.git'
           rev: 'master'
         cache:
           engine: 'memcached'
@@ -40,4 +40,4 @@
 
 ## Read more
 
-* TODO
+* http://docs.gunicorn.org/en/latest/configure.html
