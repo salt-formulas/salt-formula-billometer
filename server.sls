@@ -1,4 +1,5 @@
-{%- if pillar.billometer.server.enabled %}
+{%- set server = server.%}
+{%- if server.enabled %}
 
 include:
 - git
@@ -29,18 +30,35 @@ billometer_packages:
   - require:
     - pkg: billometer_packages
 
-{{ pillar.billometer.server.source.address }}:
+billometer_user:
+  user.present:
+  - name: billometer
+  - system: True
+  - home: /srv/billometer
+  - require:
+    - virtualenv: /srv/billometer
+
+{{ server.source.address }}:
   git.latest:
   - target: /srv/billometer/billometer
-  - rev: {{ pillar.billometer.server.source.rev }}
+  - rev: {{ server.source.rev }}
   - require:
     - virtualenv: /srv/billometer
     - pkg: git_packages
 
-/srv/billometer/server.wsgi:
+/srv/billometer/site/core/wsgi.py:
   file:
   - managed
-  - source: salt://billometer/conf/server.wsgi
+  - source: salt://billometer/conf/wsgi.py
+  - mode: 755
+  - template: jinja
+  - require:
+    - file: /srv/billometer/site/core
+
+/srv/billometer/bin/gunicorn_start:
+  file:
+  - managed
+  - source: salt://billometer/conf/gunicorn_start
   - mode: 755
   - template: jinja
   - require:
@@ -59,8 +77,8 @@ billometer_packages:
 /srv/billometer/media:
   file:
   - directory
-  - user: www-data
-  - group: www-data
+  - user: billometer
+  - group: billometer
   - mode: 755
   - makedirs: true
   - require:
@@ -79,8 +97,8 @@ billometer_packages:
 /srv/billometer/logs:
   file:
   - directory
-  - user: www-data
-  - group: www-data
+  - user: billometer
+  - group: billometer
   - mode: 755
   - makedirs: true
   - require:
