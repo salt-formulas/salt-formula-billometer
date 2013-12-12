@@ -1,4 +1,4 @@
-{%- set server = server.%}
+{%- set server = pillar.billometer.server %}
 {%- if server.enabled %}
 
 include:
@@ -59,7 +59,9 @@ billometer_user:
   file:
   - managed
   - source: salt://billometer/conf/gunicorn_start
-  - mode: 755
+  - mode: 700
+  - user: billometer
+  - group: billometer
   - template: jinja
   - require:
     - virtualenv: /srv/billometer
