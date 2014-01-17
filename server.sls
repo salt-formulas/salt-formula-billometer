@@ -56,8 +56,7 @@ billometer_user:
     - file: /srv/billometer/site/core
 
 /srv/billometer/bin/gunicorn_start:
-  file:
-  - managed
+  file.managed:
   - source: salt://billometer/conf/gunicorn_start
   - mode: 700
   - user: billometer
@@ -66,9 +65,12 @@ billometer_user:
   - require:
     - virtualenv: /srv/billometer
 
-/srv/billometer/site/core:
-  file:
-  - directory
+billometer_dirs:
+  file.directory:
+  - names:
+    - /srv/billometer/site/core
+    - /srv/billometer/static
+    - /srv/billometer/logs
   - user: root
   - group: root
   - mode: 755
@@ -86,57 +88,34 @@ billometer_user:
   - require:
     - virtualenv: /srv/billometer
 
-/srv/billometer/static:
-  file:
-  - directory
-  - user: root
-  - group: root
-  - mode: 755
-  - makedirs: true
-  - require:
-    - virtualenv: /srv/billometer
-
-/srv/billometer/logs:
-  file:
-  - directory
-  - user: billometer
-  - group: billometer
-  - mode: 755
-  - makedirs: true
-  - require:
-    - virtualenv: /srv/billometer
-
 /srv/billometer/site/core/settings.py:
-  file:
-  - managed
+  file.managed:
   - user: root
   - group: root
   - source: salt://billometer/conf/settings.py
   - template: jinja
   - mode: 644
   - require:
-    - file: /srv/billometer/site/core
+    - file: billometer_dirs
 
 /srv/billometer/site/core/__init__.py:
-  file:
-  - managed
+  file.managed:
   - user: root
   - group: root
   - template: jinja
   - mode: 644
   - require:
-    - file: /srv/billometer/site/core
+    - file: billometer_dirs
 
 /srv/billometer/site/manage.py:
-  file:
-  - managed
+  file.managed:
   - user: root
   - group: root
   - source: salt://billometer/conf/manage.py
   - template: jinja
   - mode: 755
   - require:
-    - file: /srv/billometer/site/core
+    - file: billometer_dirs
 
 sync_database_billometer:
   cmd.run:
