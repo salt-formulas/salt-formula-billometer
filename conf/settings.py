@@ -30,10 +30,20 @@ CACHES = {
 }
 
 KEYSTONE_REGION = "{{ app.identity.region }}"
+{% if app.identity.token is defined %}
 KEYSTONE_SERVICE_TOKEN = "{{ app.identity.token }}"
+{% endif %}
+{% if app.identity.user is defined %}
+KEYSTONE_USER = "{{ app.identity.user }}"
+{% endif %}
+{% if app.identity.password is defined %}
+KEYSTONE_PASSWORD = "{{ app.identity.password }}"
+{% endif %}
 KEYSTONE_SERVICE_ENDPOINT="http://{{ app.identity.host }}:{{ app.identity.port }}/v{{ app.identity.api_version }}.0"
 
 OPENSTACK_KEYSTONE_URL = KEYSTONE_SERVICE_ENDPOINT
+
+OPENSTACK_SSL_NO_VERIFY = True
 
 EMAIL_HOST = '{{ app.mail.host }}',
 EMAIL_HOST_USER = '{{ app.mail.user }}',
