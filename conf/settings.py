@@ -45,6 +45,19 @@ OPENSTACK_KEYSTONE_URL = KEYSTONE_SERVICE_ENDPOINT
 
 OPENSTACK_SSL_NO_VERIFY = True
 
+OPENSTACK_API_VERSIONS = {
+    'identity': 2.0
+}
+
+USE_TZ = True
+
+OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = False
+OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = 'Default'
+
+#AVAILABLE_REGIONS = [
+#    (OPENSTACK_KEYSTONE_URL, 'Default region'),
+#]
+
 EMAIL_HOST = '{{ app.mail.host }}',
 EMAIL_HOST_USER = '{{ app.mail.user }}',
 EMAIL_HOST_PASSWORD = '{{ app.mail.password }}'
@@ -97,8 +110,8 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
@@ -109,9 +122,9 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-    'billometer',
-    'django.contrib.auth',
+    'django',
     'django.contrib.contenttypes',
+    'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
@@ -120,6 +133,7 @@ INSTALLED_APPS = (
     'south',
     'rest_framework',
     'openstack_auth',
+    'billometer',
 )
 
 STATICFILES_FINDERS =(
@@ -127,8 +141,8 @@ STATICFILES_FINDERS =(
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
-LOGIN_URL = '/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/admin/'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
