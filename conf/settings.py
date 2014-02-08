@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'south',
     'rest_framework',
     'openstack_auth',
+    'djcelery',
     'billometer',
 )
 
