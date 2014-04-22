@@ -10,16 +10,12 @@ billometer_packages:
   - names:
     - python-pip
     - python-virtualenv
-    - python-memcache
-    - python-psycopg2
+    - python-memcached
     - python-imaging
     - python-docutils
     - python-simplejson
     - python-tz
-    - python-pygraphviz
-    - python-dev
     - gettext
-    - libpq-dev
   - require:
     - pkg: python_packages
 
