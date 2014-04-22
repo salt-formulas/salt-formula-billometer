@@ -10,11 +10,17 @@ billometer_packages:
   - names:
     - python-pip
     - python-virtualenv
-    - python-memcached
     - python-imaging
     - python-docutils
     - python-simplejson
+    {%- if grains.os_family == 'Debian' %}
     - python-tz
+    - python-memcache
+    {%- endif %}
+    {%- if grains.os_family == 'RedHat' %}
+    - python-memcached
+    - gcc
+    {%- endif %}
     - gettext
   - require:
     - pkg: python_packages
