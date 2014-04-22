@@ -16,10 +16,17 @@ billometer_packages:
     {%- if grains.os_family == 'Debian' %}
     - python-tz
     - python-memcache
+    - build-essential
+    - libssl-dev
+    - libffi-dev
+    - python-dev
     {%- endif %}
     {%- if grains.os_family == 'RedHat' %}
     - python-memcached
     - gcc
+    - libffi-devel
+    - python-devel 
+    - openssl-devel
     {%- endif %}
     - gettext
   - require:

@@ -1,0 +1,8 @@
+{% set server = salt['grains.filter_by']({
+    'Debian': {
+        'python_version': '2.7',
+    },
+    'RedHat': {
+        'python_version': '2.6',
+    },
+}, merge=salt['pillar.get']('billometer:server')) %}
