@@ -27,6 +27,7 @@ billometer_packages:
     - libffi-devel
     - python-devel 
     - openssl-devel
+    - MySQL-python
     {%- endif %}
     - gettext
   - require:
