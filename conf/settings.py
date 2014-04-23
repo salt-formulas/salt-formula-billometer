@@ -29,7 +29,7 @@ CACHES = {
     }
 }
 
-KEYSTONE_REGION = "{{ app.identity.region }}"
+KEYSTONE_REGION = "{{ app.identity.get('region', 'RegionOne') }}"
 {% if app.identity.token is defined %}
 KEYSTONE_SERVICE_TOKEN = "{{ app.identity.token }}"
 {% endif %}
@@ -39,7 +39,7 @@ KEYSTONE_USER = "{{ app.identity.user }}"
 {% if app.identity.password is defined %}
 KEYSTONE_PASSWORD = "{{ app.identity.password }}"
 {% endif %}
-KEYSTONE_SERVICE_ENDPOINT="http://{{ app.identity.host }}:{{ app.identity.port }}/v{{ app.identity.api_version }}.0"
+KEYSTONE_SERVICE_ENDPOINT="http://{{ app.identity.host }}:{{ app.identity.port }}/v2.0"
 
 OPENSTACK_KEYSTONE_URL = KEYSTONE_SERVICE_ENDPOINT
 
