@@ -74,7 +74,10 @@ MANAGERS = ADMINS
 SITE_ID = 1
 SITE_NAME = 'billometer'
 
+TIME_ZONE = 'Europe/Prague'
+{#
 TIME_ZONE = '{{ pillar.system.timezone }}'
+#}
 
 LANGUAGE_CODE = 'en'
 
