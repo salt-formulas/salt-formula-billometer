@@ -93,6 +93,16 @@ billometer_dirs:
   - require:
     - file: billometer_dirs
 
+/srv/billometer/site/celery_config.py:
+  file.managed:
+  - user: root
+  - group: root
+  - source: salt://billometer/conf/celery.py
+  - template: jinja
+  - mode: 755
+  - require:
+    - file: billometer_dirs
+
 /srv/billometer/site/manage.py:
   file.managed:
   - user: root
