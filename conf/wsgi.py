@@ -1,4 +1,4 @@
-{% from "billometer/map.jinja" import server with context %}
+{%- from "billometer/map.jinja" import server with context %}
 
 import os
 import sys

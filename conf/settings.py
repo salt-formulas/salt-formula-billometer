@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-{%- set app = pillar.billometer.server %}
+{%- from "billometer/map.jinja" import server with context %}
 
 from os.path import join, dirname, abspath, normpath
 
 DATABASES = {
     'default': {
-        {%- if app.database.engine == 'mysql' %}
+        {%- if server.database.engine == 'mysql' %}
         'ENGINE': 'django.db.backends.mysql',
         'PORT': '3306',
         'OPTIONS': { 'init_command': 'SET storage_engine=INNODB,character_set_connection=utf8,collation_connection=utf8_unicode_ci', },
@@ -13,33 +13,33 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'PORT': '5432',
         {%- endif %}
-        'HOST': '{{ app.database.host }}',
-        'NAME': '{{ app.database.name }}',
-        'PASSWORD': '{{ app.database.password }}',
-        'USER': '{{ app.database.user }}'
+        'HOST': '{{ server.database.host }}',
+        'NAME': '{{ server.database.name }}',
+        'PASSWORD': '{{ server.database.password }}',
+        'USER': '{{ server.database.user }}'
     }
 }
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '{{ app.cache.host }}:11211',
+        'LOCATION': '{{ server.cache.host }}:11211',
         'TIMEOUT': 120,
-        'KEY_PREFIX': '{{ app.cache.prefix }}'
+        'KEY_PREFIX': '{{ server.cache.prefix }}'
     }
 }
 
-KEYSTONE_REGION = "{{ app.identity.get('region', 'RegionOne') }}"
-{% if app.identity.token is defined %}
-KEYSTONE_SERVICE_TOKEN = "{{ app.identity.token }}"
+KEYSTONE_REGION = "{{ server.identity.get('region', 'RegionOne') }}"
+{% if server.identity.token is defined %}
+KEYSTONE_SERVICE_TOKEN = "{{ server.identity.token }}"
 {% endif %}
-{% if app.identity.user is defined %}
-KEYSTONE_USER = "{{ app.identity.user }}"
+{% if server.identity.user is defined %}
+KEYSTONE_USER = "{{ server.identity.user }}"
 {% endif %}
-{% if app.identity.password is defined %}
-KEYSTONE_PASSWORD = "{{ app.identity.password }}"
+{% if server.identity.password is defined %}
+KEYSTONE_PASSWORD = "{{ server.identity.password }}"
 {% endif %}
-KEYSTONE_SERVICE_ENDPOINT="http://{{ app.identity.host }}:{{ app.identity.port }}/v2.0"
+KEYSTONE_SERVICE_ENDPOINT="http://{{ server.identity.host }}:{{ server.identity.port }}/v2.0"
 
 OPENSTACK_KEYSTONE_URL = KEYSTONE_SERVICE_ENDPOINT
 
@@ -58,9 +58,9 @@ OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = 'Default'
 #    (OPENSTACK_KEYSTONE_URL, 'Default region'),
 #]
 
-EMAIL_HOST = '{{ app.mail.host }}',
-EMAIL_HOST_USER = '{{ app.mail.user }}',
-EMAIL_HOST_PASSWORD = '{{ app.mail.password }}'
+EMAIL_HOST = '{{ server.mail.host }}',
+EMAIL_HOST_USER = '{{ server.mail.user }}',
+EMAIL_HOST_PASSWORD = '{{ server.mail.password }}'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -93,7 +93,7 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = '/srv/billometer/static/'
 STATIC_URL = '/static/'
 
-SECRET_KEY = '{{ app.secret_key }}'
+SECRET_KEY = '{{ server.secret_key }}'
 
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
