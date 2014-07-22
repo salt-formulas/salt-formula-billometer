@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-{% from "billometer/map.jinja" import server with context %}
+{%- from "billometer/map.jinja" import server with context %}
 
 import sys
 from os.path import join, dirname, abspath, normpath

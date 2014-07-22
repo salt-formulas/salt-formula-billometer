@@ -1,4 +1,4 @@
-{%- set server = pillar.billometer.server %}
+{%- from "billometer/map.jinja" import server with context %}
 {%- if server.enabled %}
 
 include:
@@ -7,29 +7,7 @@ include:
 
 billometer_packages:
   pkg.installed:
-  - names:
-    - python-pip
-    - python-virtualenv
-    - python-imaging
-    - python-docutils
-    - python-simplejson
-    {%- if grains.os_family == 'Debian' %}
-    - python-tz
-    - python-memcache
-    - build-essential
-    - libssl-dev
-    - libffi-dev
-    - python-dev
-    {%- endif %}
-    {%- if grains.os_family == 'RedHat' %}
-    - python-memcached
-    - gcc
-    - libffi-devel
-    - python-devel 
-    - openssl-devel
-    - MySQL-python
-    {%- endif %}
-    - gettext
+  - names: {{ server.pkgs }}
   - require:
     - pkg: python_packages
 
@@ -57,8 +35,7 @@ billometer_user:
     - pkg: git_packages
 
 /srv/billometer/site/core/wsgi.py:
-  file:
-  - managed
+  file.managed:
   - source: salt://billometer/conf/wsgi.py
   - mode: 755
   - template: jinja
@@ -89,8 +66,7 @@ billometer_dirs:
     - virtualenv: /srv/billometer
 
 /srv/billometer/media:
-  file:
-  - directory
+  file.directory:
   - user: billometer
   - group: billometer
   - mode: 755
