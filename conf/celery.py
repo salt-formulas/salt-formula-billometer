@@ -1,3 +1,6 @@
+{%- from "billometer/map.jinja" import server with context %}
+{%- set broker =  server.message_queue %}
+
 from datetime import timedelta
 from kombu import Queue, Exchange
 from celery import Celery
@@ -5,7 +8,7 @@ import logging
 
 logger = logging.getLogger("billometer.collector")
 
-BROKER_URL = 'amqp://billometer:billometer@localhost:5672//billometer'
+BROKER_URL = 'amqp://{{ broker.user }}:{{ broker.password }}@{{ broker.host }}:{{ broker.get('port', '5672') }}/{{ broker.virtual_host }}'
 
 CELERY_RESULT_BACKEND = "amqp"
 CELERY_RESULT_EXCHANGE = 'results'
