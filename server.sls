@@ -58,8 +58,8 @@ billometer_dirs:
     - /srv/billometer/site/core
     - /srv/billometer/static
     - /srv/billometer/logs
-  - user: root
-  - group: root
+  - user: billometer
+  - group: billometer
   - mode: 755
   - makedirs: true
   - require:
