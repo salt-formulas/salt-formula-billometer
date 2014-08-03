@@ -49,6 +49,11 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds=60),
         'args': tuple()
     },
+    'sync_nova': {
+        'task': 'billometer.tasks.sync_nova',
+        'schedule': timedelta(seconds=120),
+        'args': tuple()
+    },
 }
 
 celery = Celery('collector', broker=BROKER_URL)
