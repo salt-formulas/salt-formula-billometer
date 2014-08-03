@@ -113,6 +113,14 @@ billometer_dirs:
   - require:
     - file: billometer_dirs
 
+/srv/billometer/logs/collector.log:
+  file.managed:
+  - user: billometer
+  - group: billometer
+  - mode: 777
+  - require:
+    - file: billometer_dirs
+
 sync_database_billometer:
   cmd.run:
   - name: source /srv/billometer/bin/activate; python manage.py syncdb --noinput
