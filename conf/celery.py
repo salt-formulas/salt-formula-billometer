@@ -1,6 +1,15 @@
 {%- from "billometer/map.jinja" import server with context %}
 {%- set broker =  server.message_queue %}
 
+import sys
+import os
+
+sys.path.append('/srv/billometer/lib/python{{ server.python_version }}/site-packages')
+sys.path.append('/srv/billometer/billometer')
+sys.path.append('/srv/billometer/site')
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'core.settings'
+
 from datetime import timedelta
 from kombu import Queue, Exchange
 from celery import Celery
@@ -9,6 +18,8 @@ import logging
 logger = logging.getLogger("billometer.collector")
 
 BROKER_URL = 'amqp://{{ broker.user }}:{{ broker.password }}@{{ broker.host }}:{{ broker.get('port', '5672') }}/{{ broker.virtual_host }}'
+
+CELERY_IMPORTS = ("billometer.tasks")
 
 CELERY_RESULT_BACKEND = "amqp"
 CELERY_RESULT_EXCHANGE = 'results'
@@ -32,4 +43,12 @@ CELERY_DEFAULT_ROUTING_KEY = 'default'
 
 CELERY_TIMEZONE = 'UTC'
 
-celery = Celery('billometer', broker=BROKER_URL)
+CELERYBEAT_SCHEDULE = {
+    'sync_keystone': {
+        'task': 'billometer.tasks.sync_keystone',
+        'schedule': timedelta(seconds=60),
+        'args': tuple()
+    },
+}
+
+celery = Celery('collector', broker=BROKER_URL)
