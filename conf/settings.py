@@ -157,13 +157,10 @@ REST_FRAMEWORK = {
     ]
 }
 
-
 {%- if server.metric is defined %}
 {%- if server.metric.engine == 'graphite' %}
-
 GRAPHITE_HOST = "{{ server.metric.host }}"
 GRAPHITE_PORT = "{{ server.metric.port }}"
 GRAPHITE_ENDPOINT = 'http//%s:%s' % (GRAPHITE_HOST, GRAPHITE_PORT)
-
 {%- endif %}
 {%- endif %}
