@@ -54,10 +54,6 @@ USE_TZ = True
 OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = False
 OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = 'Default'
 
-#AVAILABLE_REGIONS = [
-#    (OPENSTACK_KEYSTONE_URL, 'Default region'),
-#]
-
 EMAIL_HOST = '{{ server.mail.host }}',
 EMAIL_HOST_USER = '{{ server.mail.user }}',
 EMAIL_HOST_PASSWORD = '{{ server.mail.password }}'
@@ -160,3 +156,14 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+
+{%- if server.metric is defined %}
+{%- if server.metric.engine == 'graphite' %}
+
+GRAPHITE_HOST = "{{ server.metric.host }}"
+GRAPHITE_PORT = "{{ server.metric.port }}"
+GRAPHITE_ENDPOINT = 'http//%s:%s' % (GRAPHITE_HOST, GRAPHITE_PORT)
+
+{%- endif %}
+{%- endif %}
