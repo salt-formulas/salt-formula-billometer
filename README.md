@@ -37,6 +37,9 @@
           host: 'mail.domain.com'
           password: 'mail-pwd'
           user: 'mail-user'
+        logger:
+          engine: sentry
+          dsn: pub@sec:dsn.cz/12
 
 ## Read more
 

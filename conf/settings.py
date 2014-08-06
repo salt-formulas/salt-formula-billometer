@@ -91,7 +91,8 @@ STATIC_URL = '/static/'
 
 SECRET_KEY = '{{ server.secret_key }}'
 
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+#ADMIN_MEDIA_PREFIX = '/static/admin/'  DeprecationWarning: The ADMIN_MEDIA_PREFIX setting has been removed; use STATIC_URL instead.
+
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -133,6 +134,9 @@ INSTALLED_APPS = (
     'rest_framework',
     'openstack_auth',
     'billometer',
+    {% if server.logger is defined %}
+    'raven.contrib.django.raven_compat',
+    {% endif %}
 )
 
 STATICFILES_FINDERS =(
@@ -163,3 +167,73 @@ GRAPHITE_PORT = "{{ server.metric.port }}"
 GRAPHITE_ENDPOINT = 'http://%s:%s' % (GRAPHITE_HOST, GRAPHITE_PORT)
 {%- endif %}
 {%- endif %}
+
+RAVEN_CONFIG = {
+{% if server.logger is defined %}
+    'dsn': '{{ server.logger.dsn }}',
+{% endif %}
+}
+{% if server.logger is defined %}
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'root': {
+        'level': 'WARNING',
+        'handlers': ['sentry'],
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/srv/billometer/logs/billometer.log',
+            'formatter': 'verbose'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+    }
+}
+{% endif %}
