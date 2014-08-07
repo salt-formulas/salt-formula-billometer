@@ -49,7 +49,7 @@
           host: 'mail.domain.com'
           password: 'mail-pwd'
           user: 'mail-user'
-        logger:
+        logging:
           engine: sentry
           dsn: pub@sec:dsn.cz/12
 

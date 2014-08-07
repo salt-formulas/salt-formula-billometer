@@ -134,7 +134,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'openstack_auth',
     'billometer',
-    {% if server.logger is defined %}
+    {% if server.logging is defined %}
     'raven.contrib.django.raven_compat',
     {% endif %}
 )
@@ -175,11 +175,11 @@ STATSD_PREFIX = "{{ server.metric.out.get('prefix', '') }"
 {%- endif %}
 
 RAVEN_CONFIG = {
-{% if server.logger is defined %}
-    'dsn': '{{ server.logger.dsn }}',
+{% if server.logging is defined %}
+    'dsn': '{{ server.logging.dsn }}',
 {% endif %}
 }
-{% if server.logger is defined %}
+{% if server.logging is defined %}
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
