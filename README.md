@@ -8,6 +8,8 @@
         enabled: true
         workers: 3
         secret_key: secret_token
+        sync_time: 600
+        collect_time: 1800
         bind:
           address: 0.0.0.0
           port: 9753

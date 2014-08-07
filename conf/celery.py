@@ -46,17 +46,17 @@ CELERY_TIMEZONE = 'UTC'
 CELERYBEAT_SCHEDULE = {
     'sync_keystone': {
         'task': 'billometer.tasks.sync_keystone',
-        'schedule': timedelta(seconds=60),
+        'schedule': timedelta(seconds={{ server.get("sync_time", 60) }}),
         'args': tuple()
     },
     'sync_nova': {
         'task': 'billometer.tasks.sync_nova',
-        'schedule': timedelta(seconds=120),
+        'schedule': timedelta(seconds={{ server.get("sync_time", 60) }}),
         'args': tuple()
     },
     'collect_nova': {
         'task': 'billometer.tasks.sync_nova',
-        'schedule': timedelta(seconds=120),
+        'schedule': timedelta(seconds={{ server.get("collect_time", 120) }}),
         'args': tuple()
     },
 }
