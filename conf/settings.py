@@ -161,11 +161,17 @@ REST_FRAMEWORK = {
 }
 
 {%- if server.metric is defined %}
-{%- if server.metric.engine == 'graphite' %}
-GRAPHITE_HOST = "{{ server.metric.host }}"
-GRAPHITE_PORT = "{{ server.metric.port }}"
+{%- if server.metric.get("in", {"engine": ""}).engine == 'graphite' %}
+GRAPHITE_HOST = "{{ server.metric.in.host }}"
+GRAPHITE_PORT = "{{ server.metric.in.port }}"
 GRAPHITE_ENDPOINT = 'http://%s:%s' % (GRAPHITE_HOST, GRAPHITE_PORT)
 {%- endif %}
+{%- if server.metric.get("out", {"engine": ""}).engine == 'statsd' %}
+STATSD_HOST = "{{ server.metric.out.host }}"
+STATSD_PORT = "{{ server.metric.out.port }}"
+STATSD_PREFIX = "{{ server.metric.out.get('prefix', '') }"
+{%- endif %}
+
 {%- endif %}
 
 RAVEN_CONFIG = {

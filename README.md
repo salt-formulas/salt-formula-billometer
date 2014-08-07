@@ -10,6 +10,16 @@
         secret_key: secret_token
         sync_time: 600
         collect_time: 1800
+        metric:
+          in:
+            engine: graphite
+            host: 10.10.10.180
+            port: 80
+          out:
+            engine: statsd
+            host: 10.10.10.180
+            prefix: foo
+            port: 80
         bind:
           address: 0.0.0.0
           port: 9753
