@@ -169,7 +169,7 @@ GRAPHITE_ENDPOINT = 'http://%s:%s' % (GRAPHITE_HOST, GRAPHITE_PORT)
 {%- if server.metric.get("out", {"engine": ""}).engine == 'statsd' %}
 STATSD_HOST = "{{ server.metric.out.host }}"
 STATSD_PORT = "{{ server.metric.out.port }}"
-STATSD_PREFIX = "{{ server.metric.out.get('prefix', '') }"
+STATSD_PREFIX = "{{ server.metric.out.get('prefix', '') }}"
 {%- endif %}
 
 {%- endif %}
