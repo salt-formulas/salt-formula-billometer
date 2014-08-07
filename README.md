@@ -19,7 +19,7 @@
             engine: statsd
             host: 10.10.10.180
             prefix: foo
-            port: 80
+            port: 81
         bind:
           address: 0.0.0.0
           port: 9753
