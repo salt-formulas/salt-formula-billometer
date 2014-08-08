@@ -91,9 +91,6 @@ STATIC_URL = '/static/'
 
 SECRET_KEY = '{{ server.secret_key }}'
 
-#ADMIN_MEDIA_PREFIX = '/static/admin/'  DeprecationWarning: The ADMIN_MEDIA_PREFIX setting has been removed; use STATIC_URL instead.
-
-
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
@@ -160,16 +157,26 @@ REST_FRAMEWORK = {
     ]
 }
 
+SYNC_TIME = {{ server.get("sync_time", 60) }}
+COLLECT_TIME = {{ server.get("collect_time", 120) }}
+
 {%- if server.metric is defined %}
+
 {%- if server.metric.get("in", {"engine": ""}).engine == 'graphite' %}
 GRAPHITE_HOST = "{{ server.metric.in.host }}"
 GRAPHITE_PORT = "{{ server.metric.in.port }}"
 GRAPHITE_ENDPOINT = 'http://%s:%s' % (GRAPHITE_HOST, GRAPHITE_PORT)
 {%- endif %}
+
 {%- if server.metric.get("out", {"engine": ""}).engine == 'statsd' %}
 STATSD_HOST = "{{ server.metric.out.host }}"
-STATSD_PORT = "{{ server.metric.out.get('port', 81) }}"
+STATSD_PORT = "{{ server.metric.out.get('port', 8125) }}"
 STATSD_PREFIX = "{{ server.metric.out.get('prefix', '') }}"
+{%- endif %}
+
+{%- if server.metric.get("out", {"engine": ""}).engine == 'carbon' %}
+CARBON_HOST = "{{ server.metric.out.host }}"
+CARBON_PORT = "{{ server.metric.out.get('port', 2003) }}"
 {%- endif %}
 
 {%- endif %}
