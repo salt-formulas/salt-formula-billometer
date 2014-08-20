@@ -67,3 +67,4 @@ CELERYBEAT_SCHEDULE = {
 }
 
 celery = Celery('collector', broker=BROKER_URL)
+
