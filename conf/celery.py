@@ -44,11 +44,21 @@ CELERY_DEFAULT_ROUTING_KEY = 'default'
 CELERY_TIMEZONE = 'UTC'
 
 CELERYBEAT_SCHEDULE = {
-    'sync_keystone': {
-        'task': 'billometer.tasks.sync_keystone',
+    'sync_all': {
+        'task': 'billometer.tasks.sync_all',
         'schedule': timedelta(seconds={{ server.get("sync_time", 60) }}),
         'args': tuple()
     },
+    'collect_all': {
+        'task': 'billometer.tasks.collect_all',
+        'schedule': timedelta(seconds={{ server.get("collect_time", 120) }}),
+        'args': tuple()
+    },
+}
+
+celery = Celery('collector', broker=BROKER_URL)
+
+"""
     'sync_nova': {
         'task': 'billometer.tasks.sync_nova',
         'schedule': timedelta(seconds={{ server.get("sync_time", 60) }}),
@@ -59,12 +69,4 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds={{ server.get("sync_time", 60) }}),
         'args': tuple()
     },
-    'collect_nova': {
-        'task': 'billometer.tasks.sync_nova',
-        'schedule': timedelta(seconds={{ server.get("collect_time", 120) }}),
-        'args': tuple()
-    },
-}
-
-celery = Celery('collector', broker=BROKER_URL)
-
+"""
