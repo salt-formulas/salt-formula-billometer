@@ -54,6 +54,11 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds={{ server.get("sync_time", 60) }}),
         'args': tuple()
     },
+    'sync_cinder': {
+        'task': 'billometer.tasks.sync_cinder',
+        'schedule': timedelta(seconds={{ server.get("sync_time", 60) }}),
+        'args': tuple()
+    },
     'collect_nova': {
         'task': 'billometer.tasks.sync_nova',
         'schedule': timedelta(seconds={{ server.get("collect_time", 120) }}),
