@@ -29,7 +29,7 @@ CACHES = {
     }
 }
 
-DEFAULT_BROKER = 'amqp://{{ server.message_queue.user }}:{{ server.message_queue.password }}@{{ server.message_queue.host }}:{{ server.message_queue.get("port",5672) }}/{{ server.message_queue.virtual_host }}'
+BROKER_URL = 'amqp://{{ server.message_queue.user }}:{{ server.message_queue.password }}@{{ server.message_queue.host }}:{{ server.message_queue.get("port",5672) }}/{{ server.message_queue.virtual_host }}'
 
 KEYSTONE_REGION = "{{ server.identity.get('region', 'RegionOne') }}"
 {% if server.identity.token is defined %}
