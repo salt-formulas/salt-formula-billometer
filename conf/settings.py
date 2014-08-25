@@ -29,8 +29,6 @@ CACHES = {
     }
 }
 
-DEFAULT_BROKER = 'amqp://{{ server.message_queue.user }}:{{ server.message_queue.password }}@{{ server.message_queue.host }}:{{ server.message_queue.get("port",5672) }}/{{ server.message_queue.virtual_host }}'
-
 KEYSTONE_REGION = "{{ server.identity.get('region', 'RegionOne') }}"
 {% if server.identity.token is defined %}
 KEYSTONE_SERVICE_TOKEN = "{{ server.identity.token }}"
@@ -104,7 +102,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.server_directories.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -120,7 +118,7 @@ ROOT_URLCONF = 'billometer.urls'
 TEMPLATE_DIRS = (
 )
 
-INSTALLED_serverS = (
+INSTALLED_APPS = (
     'django',
     'django.contrib.contenttypes',
     'django.contrib.auth',
@@ -140,7 +138,7 @@ INSTALLED_serverS = (
 
 STATICFILES_FINDERS =(
     "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.serverDirectoriesFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
 LOGIN_URL = '/admin/login/'
