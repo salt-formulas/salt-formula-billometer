@@ -25,4 +25,4 @@ setproctitle==1.1.8
 celery>=3.1.13
 django-celery>=3.1.10
 raven>=4.2.3
-git+https://github.com/jsocol/pystatsd#egg=statsd
+python-statsd==1.6.4
