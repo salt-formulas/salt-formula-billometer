@@ -3,6 +3,8 @@
 
 from os.path import join, dirname, abspath, normpath
 
+ALLOWED_HOSTS = ['*']
+
 DATABASES = {
     'default': {
         {%- if server.database.engine == 'mysql' %}
