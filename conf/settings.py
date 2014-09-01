@@ -149,6 +149,7 @@ RESOURCE_PRICE = {
     'nova.memory': '0.821904',
     'nova.cpu': '0.369849',
     'neutron.floating_ip': '0.136972',
+    'glance.image': '0.002739',
 }
 
 STATICFILES_FINDERS =(
