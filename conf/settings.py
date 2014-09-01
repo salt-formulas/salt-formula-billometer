@@ -60,7 +60,7 @@ EMAIL_HOST = '{{ server.mail.host }}',
 EMAIL_HOST_USER = '{{ server.mail.user }}',
 EMAIL_HOST_PASSWORD = '{{ server.mail.password }}'
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -138,6 +138,18 @@ INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',
     {% endif %}
 )
+
+RESOURCE_PRICE = {
+    'cinder.volume': {
+        '7k2_SAS': '0.008205',
+        '10k_SAS': '0.027383',
+        '15k_SAS': '0.034232',
+        'EasyTier': '0.041082',
+    }
+    'nova.memory': '0.821904',
+    'nova.cpu': '0.369849',
+    'neutron.floating_ip': '0.136972',
+}
 
 STATICFILES_FINDERS =(
     "django.contrib.staticfiles.finders.FileSystemFinder",
