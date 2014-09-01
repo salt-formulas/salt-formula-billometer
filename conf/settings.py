@@ -145,7 +145,7 @@ RESOURCE_PRICE = {
         '10k_SAS': '0.027383',
         '15k_SAS': '0.034232',
         'EasyTier': '0.041082',
-    }
+    },
     'nova.memory': '0.821904',
     'nova.cpu': '0.369849',
     'neutron.floating_ip': '0.136972',
