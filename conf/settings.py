@@ -58,9 +58,14 @@ USE_TZ = True
 OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = False
 OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = 'Default'
 
+
+{% if server.mail.engine == 'console' %}
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+{% else %}
 EMAIL_HOST = '{{ server.mail.host }}',
 EMAIL_HOST_USER = '{{ server.mail.user }}',
 EMAIL_HOST_PASSWORD = '{{ server.mail.password }}'
+{% endif %}
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
