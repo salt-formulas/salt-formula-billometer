@@ -26,7 +26,7 @@
           protocol: tcp
         source:
           type: 'git'
-          address: 'git@repo1.robotice.cz:django/billometer.git'
+          address: 'git@repo1.robotice.cz:python-apps/billometer.git'
           rev: 'master'
         cache:
           engine: 'memcached'
