@@ -1,0 +1,67 @@
+applications:
+- billometer
+parameters:
+  supervisor:
+    server:
+      service:
+        billometer_api:
+          name: api
+          type: billometer
+        billometer_collector:
+          name: collector
+          type: billometer
+  billometer:
+    server:
+      enabled: true
+      workers: 3
+      bind:
+        address: ${linux:network:fqdn}
+        port: 9753
+        protocol: tcp
+      sync_time: 1800
+      collect_time: 1800
+      enabled: true
+      secret_key: ${_param:billometer_secret_key}
+      source:
+        engine: git
+        address: git@repo1.robotice.cz:python-apps/billometer.git
+        rev: develop
+      cache:
+        engine: 'memcached'
+        host: '127.0.0.1'
+        prefix: 'CACHE_BILLOMETER'
+      database:
+        engine: postgresql
+        host: 127.0.0.1
+        name: billometer
+        password: ${_param:postgresql_billometer_password}
+        user: billometer
+      metric:
+        in:
+          engine: graphite
+          host: ${linux:network:fqdn}
+          port: 80
+          ssl: false
+        out:
+          engine: statsd
+          host: ${linux:network:fqdn}
+          prefix: billometer
+          port: 8125
+      message_queue:
+        engine: rabbitmq
+        host: ${linux:network:fqdn}
+        port: 5672
+        user: billometer
+        password: ${_param:rabbitmq_billometer_password}
+        virtual_host: '/billometer'
+      identity:
+        engine: 'keystone'
+        region: 'regionOne'
+        token: ${_param:keystone_billometer_password}
+        user: billometer
+        password: ${_param:keystone_billometer_password}
+        host: ${_param:keystone_billometer_password}
+        port: 35357
+        api_version: 2
+      mail:
+        engine: console
