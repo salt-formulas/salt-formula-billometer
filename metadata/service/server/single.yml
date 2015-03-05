@@ -60,7 +60,7 @@ parameters:
         token: ${_param:keystone_billometer_password}
         user: billometer
         password: ${_param:keystone_billometer_password}
-        host: ${_param:keystone_billometer_password}
+        host: ${_param:billometer_identity_host}
         port: 35357
         api_version: 2
       mail:
