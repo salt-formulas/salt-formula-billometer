@@ -1,7 +1,7 @@
 {% set server = salt['grains.filter_by']({
     'Debian': {
         'python_version': '2.7',
-        'pkgs': ['gettext', 'python-pip', 'python-virtualenv', 'python-imaging', 'python-docutils', 'python-simplejson', 'python-tz', 'python-memcache', 'build-essential', 'libssl-dev', 'libffi-dev', 'python-dev']
+        'pkgs': ['gettext', 'python-pip', 'python-virtualenv', 'python-imaging', 'python-docutils', 'python-simplejson', 'python-tz', 'python-memcache', 'build-essential', 'libssl-dev', 'libffi-dev', 'python-dev', 'python-psycopg2']
     },
     'RedHat': {
         'python_version': '2.7',
