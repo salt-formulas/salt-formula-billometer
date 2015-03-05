@@ -24,4 +24,4 @@ exec ../bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
   --workers $NUM_WORKERS \
   --user=$USER --group=$GROUP \
   --log-level=debug \
-  --bind=0.0.0.0:{{ server.bind.port }}
+  --bind={{ server.bind.address }}:{{ server.bind.port }}
