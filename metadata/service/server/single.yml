@@ -57,9 +57,9 @@ parameters:
       identity:
         engine: 'keystone'
         region: 'regionOne'
-        token: ${_param:keystone_billometer_password}
+        token: ${_param:billometer_identity_token}
         user: billometer
-        password: ${_param:keystone_billometer_password}
+        password: ${_param:billometer_identity_password}
         host: ${_param:billometer_identity_host}
         port: 35357
         api_version: 2
