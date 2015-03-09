@@ -273,3 +273,5 @@ LOGGING = {
     }
 }
 {% endif %}
+
+BILLOMETER_CONFIG = {{ server.get("billing_config", {})|json }}
