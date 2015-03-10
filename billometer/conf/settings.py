@@ -274,4 +274,4 @@ LOGGING = {
 }
 {% endif %}
 
-BILLING_CONFIG = {{ server.get("billing_config", {})|json }}
+BILLING_CONFIG = {{ server.get("billing_config", {})|python }}
