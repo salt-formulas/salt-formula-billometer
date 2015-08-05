@@ -75,5 +75,5 @@ try:
     from billometer.utils.celery import register_signal
     from raven.contrib.django.raven_compat.models import client
     register_signal(client)
-except Exception, e:
-    raise e
+except:
+    pass
