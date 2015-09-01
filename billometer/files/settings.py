@@ -11,7 +11,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'PORT': '3306',
         'OPTIONS': {'init_command': 'SET storage_engine=INNODB,character_set_connection=utf8,collation_connection=utf8_unicode_ci', },
-        { % else % }
+        {% else %}
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'PORT': '5432',
         {%- endif %}
@@ -34,15 +34,15 @@ CACHES = {
 BROKER_URL = 'amqp://{{ server.message_queue.user }}:{{ server.message_queue.password }}@{{ server.message_queue.host }}:{{ server.message_queue.get("port",5672) }}/{{ server.message_queue.virtual_host }}'
 
 KEYSTONE_REGION = "{{ server.identity.get('region', 'RegionOne') }}"
-{ % if server.identity.token is defined % }
+{% if server.identity.token is defined %}
 KEYSTONE_SERVICE_TOKEN = "{{ server.identity.token }}"
-{ % endif % }
-{ % if server.identity.user is defined % }
+{% endif %}
+{% if server.identity.user is defined %}
 KEYSTONE_USER = "{{ server.identity.user }}"
-{ % endif % }
-{ % if server.identity.password is defined % }
+{% endif %}
+{% if server.identity.password is defined %}
 KEYSTONE_PASSWORD = "{{ server.identity.password }}"
-{ % endif % }
+{% endif %}
 KEYSTONE_SERVICE_ENDPOINT = "http://{{ server.identity.host }}:{{ server.identity.port }}/v2.0"
 
 OPENSTACK_KEYSTONE_URL = KEYSTONE_SERVICE_ENDPOINT
@@ -59,29 +59,32 @@ OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = False
 OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = 'Default'
 
 
-{ % if server.mail.engine == 'console' % }
+{% if server.mail.engine == 'console' %}
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-{ % else % }
+{% else %}
 EMAIL_HOST = '{{ server.mail.host }}',
 EMAIL_HOST_USER = '{{ server.mail.user }}',
 EMAIL_HOST_PASSWORD = '{{ server.mail.password }}'
-{ % endif % }
+{% endif %}
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 TIME_ZONE = 'Europe/Prague'
-{
+
+{%- if pillar.linux is defined %}
+TIME_ZONE = '{{ pillar.linux.system.timezone }}'
+{%- else %}
 TIME_ZONE = '{{ pillar.system.timezone }}'
-#}
+{%- endif %}
 
 SECRET_KEY = '{{ server.secret_key }}'
 
-{ % if server.logging is defined % }
+{% if server.logging is defined %}
 ADD_INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',
 )
-{ % endif % }
+{% endif %}
 
 RESOURCE_PRICE = {
     'cinder.volume': {
@@ -121,11 +124,11 @@ CARBON_PORT = "{{ server.metric.out.get('port', 2003) }}"
 {%- endif %}
 
 RAVEN_CONFIG = {
-{ % if server.logging is defined % }
+{% if server.logging is defined %}
     'dsn': '{{ server.logging.dsn }}',
-{ % endif % }
+{% endif %}
 }
-{ % if server.logging is defined % }
+{% if server.logging is defined %}
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -188,6 +191,6 @@ LOGGING = {
         },
     }
 }
-{ % endif % }
+{% endif %}
 
 BILLING_CONFIG = {{server.get("billing_config", {}) | python}}
