@@ -14,8 +14,11 @@ import os
 
 sys.path.append('/srv/billometer/billometer')
 sys.path.append('/srv/billometer/site')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'core.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'billometer.settings'
 
 import django.core.handlers.wsgi
+import django
+
+django.setup()
 
 application = django.core.handlers.wsgi.WSGIHandler()

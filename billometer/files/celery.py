@@ -8,7 +8,7 @@ sys.path.append('/srv/billometer/lib/python{{ server.python_version }}/site-pack
 sys.path.append('/srv/billometer/billometer')
 sys.path.append('/srv/billometer/site')
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'core.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'billometer.settings'
 
 from datetime import timedelta
 from kombu import Queue, Exchange

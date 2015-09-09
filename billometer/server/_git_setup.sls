@@ -14,7 +14,7 @@ billometer_packages:
 /srv/billometer:
   virtualenv.manage:
   - system_site_packages: True
-  - requirements: salt://billometer/conf/requirements.txt
+  - requirements: salt://billometer/files/requirements.txt
   - require:
     - pkg: billometer_packages
 
@@ -34,17 +34,17 @@ billometer_user:
     - virtualenv: /srv/billometer
     - pkg: git_packages
 
-/srv/billometer/site/core/wsgi.py:
+/srv/billometer/site/wsgi.py:
   file.managed:
-  - source: salt://billometer/conf/wsgi.py
+  - source: salt://billometer/files/wsgi.py
   - mode: 755
   - template: jinja
   - require:
-    - file: /srv/billometer/site/core
+    - file: /srv/billometer/site
 
 /srv/billometer/bin/gunicorn_start:
   file.managed:
-  - source: salt://billometer/conf/gunicorn_start
+  - source: salt://billometer/files/gunicorn_start
   - mode: 700
   - user: billometer
   - group: billometer
@@ -55,7 +55,7 @@ billometer_user:
 billometer_dirs:
   file.directory:
   - names:
-    - /srv/billometer/site/core
+    - /srv/billometer/site
     - /srv/billometer/static
     - /srv/billometer/logs
   - user: billometer
@@ -74,20 +74,11 @@ billometer_dirs:
   - require:
     - virtualenv: /srv/billometer
 
-/srv/billometer/site/core/settings.py:
+/srv/billometer/site/local_settings.py:
   file.managed:
   - user: root
   - group: root
   - source: salt://billometer/files/settings.py
-  - template: jinja
-  - mode: 644
-  - require:
-    - file: billometer_dirs
-
-/srv/billometer/site/core/__init__.py:
-  file.managed:
-  - user: root
-  - group: root
   - template: jinja
   - mode: 644
   - require:
@@ -107,7 +98,7 @@ billometer_dirs:
   file.managed:
   - user: root
   - group: root
-  - source: salt://billometer/conf/manage.py
+  - source: salt://billometer/files/manage.py
   - template: jinja
   - mode: 755
   - require:
@@ -129,25 +120,18 @@ billometer_dirs:
   - require:
     - file: billometer_dirs
 
-sync_database_billometer:
-  cmd.run:
-  - name: source /srv/billometer/bin/activate; python manage.py syncdb --noinput
-  - cwd: /srv/billometer/site
-  - require:
-    - file: /srv/billometer/site/manage.py
-
 migrate_database_billometer:
   cmd.run:
   - name: source /srv/billometer/bin/activate; python manage.py migrate --noinput
   - cwd: /srv/billometer/site
   - require:
-    - cmd: sync_database_billometer
+    - file: /srv/billometer/site/manage.py
 
 collect_static_billometer:
   cmd.run:
   - name: source /srv/billometer/bin/activate; python manage.py collectstatic --noinput
   - cwd: /srv/billometer/site
   - require:
-    - cmd: sync_database_billometer
+    - cmd: migrate_database_billometer
 
 {%- endif %}

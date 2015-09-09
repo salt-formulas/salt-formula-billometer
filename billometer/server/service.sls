@@ -6,7 +6,6 @@ include:
 - billometer.server._git_setup
 {%- else %}
 - billometer.server._pkg_setup
-{%- endif %}
 
 django_conf_settings:
   file.managed:
@@ -31,5 +30,6 @@ django_migrate_database:
   - name: {{ server.dir.base }}/bin/python {{ server.dir.base }}/bin/manage.py migrate --noinput
   - require:
     - file: django_conf_settings
+{%- endif %}
 
 {%- endif %}

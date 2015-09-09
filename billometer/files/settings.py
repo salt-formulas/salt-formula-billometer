@@ -70,6 +70,9 @@ EMAIL_HOST_PASSWORD = '{{ server.mail.password }}'
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+MEDIA_ROOT = '/srv/billometer/media/'
+STATIC_ROOT = '/srv/billometer/static/'
+
 TIME_ZONE = 'Europe/Prague'
 
 {%- if pillar.linux is defined %}
@@ -81,7 +84,7 @@ TIME_ZONE = '{{ pillar.system.timezone }}'
 SECRET_KEY = '{{ server.secret_key }}'
 
 {% if server.logging is defined %}
-ADD_INSTALLED_APPS = (
+LOCAL_INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',
 )
 {% endif %}
@@ -151,10 +154,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        'sentry': {
-            'level': 'ERROR',
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
@@ -175,7 +174,7 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins', 'file'],
+            'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True,
         },
