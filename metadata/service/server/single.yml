@@ -10,7 +10,7 @@ parameters:
         billometer_collector:
           name: collector
           type: billometer
-        billometer_collector:
+        billometer_monitor:
           name: monitor
           type: billometer
   billometer:
