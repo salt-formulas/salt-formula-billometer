@@ -54,6 +54,11 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds={{ server.get("collect_time", 120) }}),
         'args': tuple()
     },
+    'backend_cleanup': {
+        'task': 'billometer.tasks.backend_cleanup',
+        'schedule': timedelta(days=3),
+        'args': tuple()
+    },
 }
 
 celery = Celery('collector', broker=BROKER_URL)
