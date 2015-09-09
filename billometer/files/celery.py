@@ -46,12 +46,12 @@ CELERY_TIMEZONE = 'UTC'
 CELERYBEAT_SCHEDULE = {
     'sync_all': {
         'task': 'billometer.tasks.sync_all',
-        'schedule': timedelta(seconds={{server.get("sync_time", 60)}}),
+        'schedule': timedelta(seconds={{ server.get("sync_time", 60) }}),
         'args': tuple()
     },
     'collect_all': {
         'task': 'billometer.tasks.collect_all',
-        'schedule': timedelta(seconds={{server.get("collect_time", 120)}}),
+        'schedule': timedelta(seconds={{ server.get("collect_time", 120) }}),
         'args': tuple()
     },
 }
