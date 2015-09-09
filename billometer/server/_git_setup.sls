@@ -78,7 +78,7 @@ billometer_dirs:
   file.managed:
   - user: root
   - group: root
-  - source: salt://billometer/conf/settings.py
+  - source: salt://billometer/files/settings.py
   - template: jinja
   - mode: 644
   - require:
