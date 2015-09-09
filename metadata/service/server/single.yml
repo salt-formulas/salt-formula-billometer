@@ -10,6 +10,9 @@ parameters:
         billometer_collector:
           name: collector
           type: billometer
+        billometer_collector:
+          name: monitor
+          type: billometer
   billometer:
     server:
       enabled: true
