@@ -1,6 +1,9 @@
 applications:
 - billometer
 parameters:
+  _param:
+    billometer_metric_in: ${linux:network:fqdn}
+    billometer_metric_out: ${linux:network:fqdn}
   supervisor:
     server:
       service:
@@ -43,11 +46,12 @@ parameters:
         in:
           engine: graphite
           host: ${linux:network:fqdn}
+          host: ${_param:billometer_metric_in}
           port: 80
           ssl: false
         out:
           engine: statsd
-          host: ${linux:network:fqdn}
+          host: ${_param:billometer_metric_out}
           prefix: billometer
           port: 8125
       message_queue:
