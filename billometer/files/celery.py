@@ -54,6 +54,11 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds={{ server.get("collect_time", 120) }}),
         'args': tuple()
     },
+    'collect_price': {
+        'task': 'billometer.tasks.collect_price',
+        'schedule': timedelta(days=1),
+        'args': tuple()
+    },
     'backend_cleanup': {
         'task': 'billometer.tasks.backend_cleanup',
         'schedule': timedelta(days=3),
