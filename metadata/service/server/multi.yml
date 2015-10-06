@@ -1,0 +1,7 @@
+applications:
+- billometer
+parameters:
+  billometer:
+    server:
+      enabled: true
+      workers: 3
