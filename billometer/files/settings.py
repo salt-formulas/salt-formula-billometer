@@ -193,3 +193,5 @@ LOGGING = {
 {% endif %}
 
 BILLING_CONFIG = {{server.get("billing_config", {}) | python}}
+
+BILLING_EXTRA_RESOURCES = {{server.get("extra_resource", {}) | python}}

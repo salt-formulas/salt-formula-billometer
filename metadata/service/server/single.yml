@@ -24,8 +24,8 @@ parameters:
         address: 0.0.0.0
         port: 9753
         protocol: tcp
-      sync_time: 1800
-      collect_time: 1800
+      sync_time: 3600
+      collect_time: 3600
       enabled: true
       secret_key: ${_param:billometer_secret_key}
       source:
@@ -72,3 +72,4 @@ parameters:
         api_version: 2
       mail:
         engine: console
+

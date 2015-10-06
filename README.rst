@@ -1,7 +1,12 @@
 
-# Billometer
+==========
+Billometer
+==========
 
-## Sample pillar
+Sample pillar
+-------------
+
+.. code-block:: yaml
 
     billometer:
       server:
@@ -53,6 +58,47 @@
           engine: sentry
           dsn: pub@sec:dsn.cz/12
 
-## Read more
+Extra Resources
+---------------
+
+.. code-block:: yaml
+
+    billometer:
+      server:
+        enabled: true
+        workers: 3
+        secret_key: secret_token
+        sync_time: 600
+        collect_time: 1800
+        extra_resource:
+          network.rx:
+            label: Network RX
+            resource: network.rx
+            price_rate: 0.0002
+            threshold: 150000
+          7k2_SAS
+            price_rate: 0.008205
+            resource: cinder.volume
+            name: 7k2_SAS
+            label: 7k2 SA
+          10k_SAS
+            price_rate: 0.027383
+            resource: cinder.volume
+            label: 10k2 SAS
+            name: 10k_SAS
+          15k_SAS
+            price_rate: 0.034232
+            resource: cinder.volume
+            label: 15k2 SAS
+            name: 15k_SAS
+          EasyTier
+            price_rate: 0.041082
+            resource: cinder.volume
+            label: Easy Tier
+            name:'EasyTier
+
+
+Read more
+---------
 
 * http://docs.gunicorn.org/en/latest/configure.html

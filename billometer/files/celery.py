@@ -54,6 +54,18 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds={{ server.get("collect_time", 120) }}),
         'args': tuple()
     },
+    {%- if server.extra_resource is defined and ('network.rx' or 'network.tx') in server.extra_resource.keys() %}
+    'sync_network': {
+        'task': 'billometer.tasks.network.sync_network',
+        'schedule': timedelta(seconds={{ server.get("sync_time", 60) }}),
+        'args': tuple()
+    },
+    'collect_network': {
+        'task': 'billometer.tasks.network.collect_network',
+        'schedule': timedelta(seconds={{ server.get("collect_time", 120) }}),
+        'args': tuple()
+    },
+    {%- endif %}
     'collect_price': {
         'task': 'billometer.tasks.collect_price',
         'schedule': timedelta(days=1),

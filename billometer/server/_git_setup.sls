@@ -55,6 +55,7 @@ billometer_user:
 billometer_dirs:
   file.directory:
   - names:
+    - /etc/billometer
     - /srv/billometer/site
     - /srv/billometer/static
     - /srv/billometer/logs
@@ -74,7 +75,7 @@ billometer_dirs:
   - require:
     - virtualenv: /srv/billometer
 
-/srv/billometer/site/local_settings.py:
+/etc/billometer/settings.py:
   file.managed:
   - user: root
   - group: root
