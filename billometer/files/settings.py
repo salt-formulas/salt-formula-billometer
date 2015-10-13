@@ -89,6 +89,9 @@ LOCAL_INSTALLED_APPS = (
 )
 {% endif %}
 
+{% if server.resource_price is defined %}
+RESOURCE_PRICE = {{server.get("resource_price", {}) | python}}
+{% else %}
 RESOURCE_PRICE = {
     'cinder.volume': {
         '7k2_SAS': '0.008205',
@@ -101,6 +104,7 @@ RESOURCE_PRICE = {
     'neutron.floating_ip': '0.136972',
     'glance.image': '0.002739',
 }
+{% endif %}
 
 SYNC_TIME = {{server.get("sync_time", 60)}}
 COLLECT_TIME = {{server.get("collect_time", 120)}}
