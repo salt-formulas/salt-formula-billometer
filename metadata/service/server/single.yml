@@ -45,7 +45,6 @@ parameters:
       metric:
         in:
           engine: graphite
-          host: ${linux:network:fqdn}
           host: ${_param:billometer_metric_in}
           port: 80
           ssl: false
