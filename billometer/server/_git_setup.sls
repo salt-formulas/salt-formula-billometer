@@ -42,7 +42,7 @@ billometer_user:
   - require:
     - file: /srv/billometer/site
 
-/srv/billometer/bin/gunicorn_start:
+/srv/billometer/bin/gunicorn_start.sh:
   file.managed:
   - source: salt://billometer/files/gunicorn_start
   - mode: 700
