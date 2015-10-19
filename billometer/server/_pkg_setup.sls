@@ -34,6 +34,6 @@ billometer_packages:
     - cmd: django_migrate_database
     - file: {{ server.dir.base }}/celery_config.py
 
-{{ server.dir.base }}/celery_config.py:
+{{ server.dir.base }}/bin/celery_config.py:
   file.symlink:
     - target: /etc/billometer/celery.py
