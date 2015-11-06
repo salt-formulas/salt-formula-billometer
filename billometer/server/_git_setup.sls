@@ -58,7 +58,7 @@ billometer_dirs:
     - /etc/billometer
     - /srv/billometer/site
     - /srv/billometer/static
-    - /srv/billometer/logs
+    - /var/log/billometer
   - user: billometer
   - group: billometer
   - mode: 755
@@ -105,7 +105,7 @@ billometer_dirs:
   - require:
     - file: billometer_dirs
 
-/srv/billometer/logs/collector.log:
+/var/log/billometer/collector.log:
   file.managed:
   - user: billometer
   - group: billometer
@@ -113,7 +113,7 @@ billometer_dirs:
   - require:
     - file: billometer_dirs
 
-/srv/billometer/logs/billometer.log:
+/var/log/billometer/billometer.log:
   file.managed:
   - user: billometer
   - group: billometer

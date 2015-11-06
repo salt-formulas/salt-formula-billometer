@@ -166,7 +166,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/srv/billometer/logs/billometer.log',
+            'filename': '/var/log/billometer/billometer.log',
             'formatter': 'verbose'
         },
         'mail_admins': {
