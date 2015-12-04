@@ -1,0 +1,9 @@
+doc:
+  name: Billometer
+  description: Modules for TCP Billing, which include Horizon dashboard, RabbitMQ, Graphite time series database operate in High Availability.
+  role:
+  {%- if pillar.billometer.server is defined %}
+    server:
+      name: server
+      param: {}
+  {%- endif %}
