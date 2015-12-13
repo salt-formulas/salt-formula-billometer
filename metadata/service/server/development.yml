@@ -29,7 +29,9 @@ parameters:
       enabled: true
       secret_key: ${_param:billometer_secret_key}
       source:
-        engine: pkg
+        engine: git
+        address: git@repo1.robotice.cz:python-apps/billometer.git
+        rev: develop
       cache:
         engine: 'memcached'
         host: '127.0.0.1'
