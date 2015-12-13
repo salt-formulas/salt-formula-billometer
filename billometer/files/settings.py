@@ -70,8 +70,8 @@ EMAIL_HOST_PASSWORD = '{{ server.mail.password }}'
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-MEDIA_ROOT = '/srv/billometer/media/'
-STATIC_ROOT = '/srv/billometer/static/'
+MEDIA_ROOT = '{{ server.dir.base }}/media/'
+STATIC_ROOT = '{{ server.dir.base }}/static/'
 
 TIME_ZONE = 'Europe/Prague'
 
