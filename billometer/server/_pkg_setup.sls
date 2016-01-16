@@ -24,7 +24,7 @@ billometer_debconf:
         value: {{ server.log_level }}
 
 billometer_packages:
-  pkg.installed:
+  pkg.latest:
   - names: {{ server.pkgs }}
   - require:
     - debconf: billometer_debconf
