@@ -26,7 +26,7 @@ django_conf_celery:
   - mode: 640
 
 django_migrate_database:
-  cmd.wait:
+  cmd.run:
   - name: {{ server.dir.base }}/bin/python {{ server.dir.base }}/bin/manage.py migrate --noinput
   - require:
     - file: django_conf_settings
