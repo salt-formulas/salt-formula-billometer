@@ -10,6 +10,6 @@ Vcs-Git: https://github.com/tcpcloud/salt-formula-billometer.git
 
 Package: salt-formula-billometer
 Architecture: all
-Depends: ${misc:Depends}, salt-master, reclass
+Depends: ${misc:Depends}
 Description: Billometer salt formula
  Install and configure Billometer service.
